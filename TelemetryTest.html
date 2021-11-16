@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>ISS Live Osculating Parameters</title>
+        <script src="require.js"></script>
+        <script src="lightstreamer.min.js"></script>
+        <script src="Coordinates.js"></script>
+        <script src="MathUtils.js"></script>
+        <script src="Orbits.js"></script>
+        <script src="TelemetryTest.js"></script>
+        <script src="TimeConversions.js"></script>
+    </head>
+
+    <body>
+        <p id="osv_timestamp"></p>
+        <h3>Telemetry:</h3>
+        <table>
+            <tr>
+                <td>
+                    Position X (km) : 
+                </td>
+                <td id="position_x_value">
+                    position_x_value
+                </td>
+                <td>
+                    Semi-Major Axis (km): 
+                </td>
+                <td id="a_value">
+                    a_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Position Y (km) : 
+                </td>
+                <td id="position_y_value">
+                    position_y_value
+                </td>
+                <td>
+                    Eccentricity: 
+                </td>
+                <td id="e_value">
+                    e_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Position Z (km) : 
+                </td>
+                <td id="position_z_value">
+                    position_z_value
+                </td>
+                <td>
+                    Inclination (deg) : 
+                </td>
+                <td id="i_value">
+                    i_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Velocity X (m/s) : 
+                </td>
+                <td id="velocity_x_value">
+                    velocity_x_value
+                </td>
+                <td>
+                    Longitude of asc. node (deg) : 
+                </td>
+                <td id="Omega_value">
+                    Omega_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Velocity Y (m/s) : 
+                </td>
+                <td id="velocity_y_value">
+                    velocity_y_value
+                </td>
+                <td>
+                    Argument of Perigee (deg): 
+                </td>
+                <td id="omega_value">
+                    omega_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Velocity Z (m/s) : 
+                </td>
+                <td id="velocity_z_value">
+                    velocity_z_value
+                </td>
+                <td>
+                    Eccentric Anomaly (deg): 
+                </td>
+                <td id="E_value">
+                    E_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    Mean Anomaly (deg): 
+                </td>
+                <td id="M_value">
+                    M_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    Natural Anomaly (deg): 
+                </td>
+                <td id="f_value">
+                    f_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    Longitude of Pericenter (deg): 
+                </td>
+                <td id="l_value">
+                    l_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    Mean Longitude (deg): 
+                </td>
+                <td id="L_value">
+                    L_value
+                </td>
+            </tr>
+        </table>
+
+        <h3>Timestamps:</h3>
+        <table>
+            <tr>
+                <td>
+                    Ext Timestamp: 
+                </td>
+                <td id="osv_timestamp_int">
+                    .
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Propagation time (ms): 
+                </td>
+                <td id="osv_delay_int">
+                </td>
+            </tr>
+        </table>
+
+        <h3>Extrapolated:</h3>
+        <table>
+            <tr>
+                <td>
+                    Position X (km) : 
+                </td>
+                <td id="position_x_value_int">
+                    position_x_value
+                </td>
+                <td>
+                    Semi-Major Axis (km): 
+                </td>
+                <td id="a_value_int">
+                    a_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Position Y (km) : 
+                </td>
+                <td id="position_y_value_int">
+                    position_y_value
+                </td>
+                <td>
+                    Eccentricity: 
+                </td>
+                <td id="e_value_int">
+                    e_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Position Z (km) : 
+                </td>
+                <td id="position_z_value_int">
+                    position_z_value
+                </td>
+                <td>
+                    Inclination (deg) : 
+                </td>
+                <td id="i_value_int">
+                    i_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Velocity X (m/s) : 
+                </td>
+                <td id="velocity_x_value_int">
+                    velocity_x_value
+                </td>
+                <td>
+                    Longitude of asc. node (deg) : 
+                </td>
+                <td id="Omega_value_int">
+                    Omega_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Velocity Y (m/s) : 
+                </td>
+                <td id="velocity_y_value_int">
+                    velocity_y_value
+                </td>
+                <td>
+                    Argument of Perigee (deg): 
+                </td>
+                <td id="omega_value_int">
+                    omega_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Velocity Z (m/s) : 
+                </td>
+                <td id="velocity_z_value_int">
+                    velocity_z_value
+                </td>
+                <td>
+                    Eccentric Anomaly (deg): 
+                </td>
+                <td id="E_value_int">
+                    E_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    Mean Anomaly (deg): 
+                </td>
+                <td id="M_value_int">
+                    M_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    Natural Anomaly (deg): 
+                </td>
+                <td id="f_value_int">
+                    f_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    Longitude of Pericenter (deg): 
+                </td>
+                <td id="l_value_int">
+                    l_value
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    Mean Longitude (deg): 
+                </td>
+                <td id="L_value_int">
+                    L_value
+                </td>
+            </tr>
+        </table> 
+        <h3>Geolocation:</h3>
+        <table>
+            <tr>
+                <td>
+                    Longitude (deg): 
+                </td>
+                <td id="longitude">
+                </td>
+            </tr>   
+            <tr>
+                <td>
+                    Latitude (deg): 
+                </td>
+                <td id="latitude">
+                </td>
+            </tr>   
+        </table>   
+    </body>
+</html>
